@@ -16,7 +16,7 @@
   </head>
   <body>
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light ">
   <a class="navbar-brand" href="http://localhost/onlinebookstore/"><img src="pic/bookstore_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">BookStore</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
