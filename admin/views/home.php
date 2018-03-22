@@ -7,8 +7,6 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
-
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -23,7 +21,7 @@
       
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a id="signOut" class="nav-link" href="#">Sign out</a>
         </li>
       </ul>
     </nav>
@@ -127,33 +125,27 @@
     <!-- Graphs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script>
-      var ctx = document.getElementById("myChart");
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff'
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          },
-          legend: {
-            display: false,
-          }
-        }
-      });
+      $("#signOut").click(function() {
+        
+        $.ajax({
+            type: "POST",
+            url: "http://localhost/onlinebookstore/admin/actions.php?action=signOut",
+            data: "",
+            success: function(result) {
+                if (result == "1") {
+                    
+                    window.location.assign("http://localhost/onlinebookstore/admin/views/adminLogin.php");
+                    
+                } else {
+                    
+                    $("#loginAlert").html(result).show();
+                    
+                }
+            }
+            
+        })
+        
+    })
     </script>
   </body>
 </html>

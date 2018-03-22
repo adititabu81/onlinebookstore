@@ -1,9 +1,8 @@
 <?php
-    if ($_SESSION['id'] == ""){
-    	header('Refresh:3,Url=http://localhost/onlinebookstore/admin/views/adminLogin.php');
-		alter '3s 后跳转';
+    if (empty($_COOKIE["admin_id"])){
+    	echo "<script>alert('Please sign in!');</script>";
+    	header('Refresh:0.1,Url=http://localhost/onlinebookstore/admin/views/adminLogin.php');
 		die;
-    	//header("Location: http://localhost/onlinebookstore/admin/views/adminLogin.php");     
     }
     
     include("../functions.php");
