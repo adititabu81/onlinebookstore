@@ -6,7 +6,7 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1" ></li>
   </ol>
-  <div class="carousel-inner" style=" width:110%; height: 300px !important;">
+  <div class="carousel-inner" style=" width:120%; height: 300px !important;">
     <div class="carousel-item active">
       <a href="http://localhost/twitter/">
       <img class="d-block w-100" src="pic/homebook.jpg" alt="First slide" >

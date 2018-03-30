@@ -9,4 +9,5 @@
         setcookie("admin_id", "", time()-3600);
         echo 1;
     }
+
 ?>
