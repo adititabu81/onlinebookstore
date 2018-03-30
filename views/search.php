@@ -29,7 +29,7 @@
             }
           } 
           echo "<div class=\"col-sm-12 col-md-3 float-left\">
-  <div class=\"card\" style=\"width: 15rem;\">
+  <div class=\"card \" style=\"width: 15rem;\">
     <img class=\"card-img-top\" src=\"pic/".$book_cover_photo."\" alt=\"Card image cap\">
     <div class=\"card-body\">
       <p class=\"card-text\">$".$book_price."</p>
@@ -42,5 +42,8 @@
       }
       
 ?>
-  
-
+  </div>
+  <div style="clear: both;">
+    <p>&nbsp</p>
+    <p>&nbsp</p>
+  </div>

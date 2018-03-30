@@ -1,15 +1,15 @@
 <?php
   if($_POST["book_id"]){
-        $book_id = $_POST["book_id"];
-        $book_name = $_POST["book_name"];
-        $inventory_amount = $_POST["inventory_amount"];
-        $book_price = $_POST["book_price"];
-        $book_category = $_POST["book_category"];
-        $book_genre = $_POST["book_genre"];
-        $author = $_POST["author"];
-        $publication = $_POST["publication"];
-        $book_language = $_POST["book_language"];
-        $book_cover_photo = $_FILES["cover_photo"]["name"];
+        $book_id = mysqli_real_escape_string($link, $_POST['book_id']);
+        $book_name = mysqli_real_escape_string($link, $_POST['book_name']);
+        $inventory_amount = mysqli_real_escape_string($link, $_POST['inventory_amount']);
+        $book_price = mysqli_real_escape_string($link, $_POST['book_price']);
+        $book_category = mysqli_real_escape_string($link, $_POST['book_category']);
+        $book_genre = mysqli_real_escape_string($link, $_POST['book_genre']);
+        $author = mysqli_real_escape_string($link, $_POST['author']);
+        $publication = mysqli_real_escape_string($link, $_POST['publication']);
+        $book_language = mysqli_real_escape_string($link, $_POST['book_language']);
+        $book_cover_photo = mysqli_real_escape_string($link, $_FILES["cover_photo"]["name"]);
 
         move_uploaded_file($_FILES["cover_photo"]["tmp_name"],"../pic/" . $_FILES["cover_photo"]["name"]);
         

@@ -20,6 +20,10 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     }
+
+    .card {
+      min-height:450px;
+    }
 </style>
   </head>
   <body>
