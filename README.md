@@ -3,7 +3,7 @@
 
 2.chage database configuration in functions.php
 
-3.put whole onlinebookstore in the "www" fold(this is for Ampps)
+3.put whole onlinebookstore folder in the "www" folder(this is for Ampps)
 
 4.enter "localhost/onlinebookstore" in brower go to book store
 
