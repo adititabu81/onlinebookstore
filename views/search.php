@@ -33,7 +33,7 @@
     <img class=\"card-img-top\" src=\"pic/".$book_cover_photo."\" alt=\"Card image cap\">
     <div class=\"card-body\">
       <p class=\"card-text\">$".$book_price."</p>
-    <a href=\"?page=search&q=".$book_id."\" class=\"card-link\">".$book_name."</a>
+    <a href=\"?page=detail&id=".$book_id."\" class=\"card-link\">".$book_name."</a>
     </div>
   </div>
   </div>";

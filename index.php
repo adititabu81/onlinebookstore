@@ -16,6 +16,14 @@
 
         include("views/account.php");
         
+    } else if ($_GET['page'] == 'detail'){
+
+        include("views/detail.php");
+        
+    } else if ($_GET['page'] == 'addCart'){
+
+        include("views/addCart.php");
+        
     } else 
         include("views/home.php");
         

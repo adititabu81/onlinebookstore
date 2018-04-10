@@ -1,5 +1,4 @@
 <?php
-
     session_start();
 
     $link = mysqli_connect("localhost", "root", "mysql", "bookstore");
@@ -12,7 +11,8 @@
     }
 
     if ($_GET['function'] == "logout") {
-        
+
+        setcookie("cart","");
         session_unset();
         
     }

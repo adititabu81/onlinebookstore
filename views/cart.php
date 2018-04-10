@@ -1,3 +1,7 @@
+<?php
+  $arr = unserialize($_COOKIE["cart"]);
+?>
+
 <body class="bg-light">
 
     <div class="container">
@@ -7,51 +11,59 @@
         <div class="col-md-4 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Your cart</span>
-            <span class="badge badge-secondary badge-pill">3</span>
+            <span class="badge badge-secondary badge-pill">
+              <?php if(!empty($arr[0]))
+                    echo count($arr);
+                    else echo 0;
+              ?></span>
           </h4>
           <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
+
+
+            <?php 
+              $sum = 0.0;
+              if(!empty($arr[0])){
+              foreach ($arr as $value) {
+                $query = "SELECT book_name,book_price FROM books WHERE book_id='$value[0]'";
+                $result = mysqli_query($link, $query);
+                $book_id = $value[0];
+                $type = $value[1];
+                $quantity = $value[2];
+                $book_name;
+                $book_price;
+                $row = $result->fetch_assoc();
+                foreach($row as $key=>$value){
+                    switch ($key){ 
+                    case "book_name":
+                    $book_name = $value;
+                    break;
+                    case "book_price":
+                    $book_price = $value;
+                    break;
+                    default:
+                    break;
+                    }
+                  } 
+                
+                $total = (double)$quantity*(double)$book_price;
+                $sum += $total;
+                echo "<li id=\"".$book_id."\"class=\"list-group-item d-flex justify-content-between lh-condensed\">
               <div>
-                <h6 class="my-0">Product name</h6>
-                <small class="text-muted">Brief description</small>
+                <h6 class=\"my-0\">".$book_name."</h6>
+                <class=\"text-muted\">".$type."   $".$book_price."   x ".$quantity."</small>
               </div>
-              <span class="text-muted">$12</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Second product</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
-              </div>
-              <span class="text-success">-$5</span>
-            </li>
+              <span>
+              <form action=\"deleteCart.php\"><input type=\"hidden\" name=\"id\" value=\"".$book_id."\"><button type=\"submit\" class=\"btn btn-outline-danger\">Delete</button></form></span></li>";
+              }
+            }
+            ?>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD)</span>
-              <strong>$20</strong>
+              <strong>$<?php echo $sum;?></strong>
             </li>
           </ul>
 
-          <form class="card p-2">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Promo code">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">Redeem</button>
-              </div>
-            </div>
-          </form>
+          
         </div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>
@@ -210,6 +222,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../../../assets/js/vendor/popper.min.js"></script>
@@ -217,6 +230,7 @@
     <script src="../../../../assets/js/vendor/holder.min.js"></script>
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
+      
       (function() {
         'use strict';
 
