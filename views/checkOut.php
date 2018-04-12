@@ -31,7 +31,7 @@
 			mysqli_query($link, $query);	
 	}
 	$order_id = md5(date("Y-m-d h:i:s").$_SESSION['id']);
-	$query = "INSERT INTO transactions (order_id,order_date,order_status,customer_id,total_cost_price)VALUES('".$order_id."','".date("Y-m-d h:i:s")."','Just Paid','".$_SESSION['id']."','".$_POST["totalPrice"]."')";
+	$query = "INSERT INTO transactions (order_id,order_date,order_status,customer_id,total_cost_price)VALUES('".$order_id."','".date("Y-m-d h:i:s")."','Paid','".$_SESSION['id']."','".$_POST["totalPrice"]."')";
 	mysqli_query($link, $query);
 	$arr = unserialize($_COOKIE["cart"]);
   	for($i = 0; $i < count($arr);$i++){
