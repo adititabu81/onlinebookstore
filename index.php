@@ -32,6 +32,10 @@
 
         include("views/checkOut.php");
         
+    } else if ($_GET['page'] == 'orders'){
+
+        include("views/orders.php");
+        
     } else 
         include("views/home.php");
         
