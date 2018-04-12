@@ -17,5 +17,5 @@
   $tmp = array($bookid,$type,$quantity);
   $arr[] = $tmp;
   save($arr);
-  echo count($arr);
+  header('Refresh:0.1,Url=http://localhost/onlinebookstore/?page=cart');
 ?>

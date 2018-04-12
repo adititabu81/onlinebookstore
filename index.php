@@ -24,6 +24,14 @@
 
         include("views/addCart.php");
         
+    } else if ($_GET['page'] == 'deleteCart'){
+
+        include("views/deleteCart.php");
+        
+    } else if ($_GET['page'] == 'checkout'){
+
+        include("views/checkOut.php");
+        
     } else 
         include("views/home.php");
         

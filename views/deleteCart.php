@@ -5,20 +5,16 @@
       setcookie("cart",$tmpserialize,time()+$expires);
     }
 
-  if(empty($_COOKIE["cart"])){
-    $cartarray = array();
-    save($cartarray);
-  } 
-
-  $book_id = $_GET['id'];
+  $book_id = $_POST['id'];
   echo $book_id;
   $arr = unserialize($_COOKIE["cart"]);
-  foreach ($arr as $value) {
-    if($value[0] == $book_id){
-      unset($value);
+  for($i = 0; $i < count($arr);$i++){
+    if($arr[$i][0] == $book_id){
+      unset($arr[$i]);
+      $arr = array_values($arr);
       break;
     }
   }
   save($arr);
-  echo count($arr);
+  header('Refresh:0.1,Url=http://localhost/onlinebookstore/?page=cart');
 ?>
