@@ -24,6 +24,8 @@
     .card {
       min-height:450px;
     }
+
+  
 </style>
   </head>
   <body>
@@ -39,19 +41,10 @@
         <a class="nav-link" href="http://localhost/onlinebookstore/?page=search">AllBooks <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="?page=orders">Orders</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Account & Lists
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="?page=account">Your Account</a>
-          <a class="dropdown-item" href="?page=orders">Your Orders</a>
-        </div>
+        <a class="nav-link" href="?page=account">Account</a>
       </li>
     </ul>
     <form class="form-inline">

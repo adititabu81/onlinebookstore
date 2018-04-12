@@ -94,7 +94,7 @@ while($stmt->fetch()) {
     echo "<select name='quantity' class='form-control'>";
 
 if ($inventory_amount > 0) {
-    for ($i = 1; $i <= $inventory_amount; $i++) {
+    for ($i = 1; $i <= $inventory_amount && $i<=30; $i++) {
         echo "<option value='$i'>" . $i . "</option>";
     }
 }

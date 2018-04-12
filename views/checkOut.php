@@ -35,8 +35,12 @@
 	mysqli_query($link, $query);
 	$arr = unserialize($_COOKIE["cart"]);
   	for($i = 0; $i < count($arr);$i++){
-    	$query = "INSERT INTO books_transactions (order_id,book_id,quantity,category) VALUES('".$order_id."','".$arr[$i][0]."','".$arr[$i][2]."','".$arr[$i][1]."')";
+  		$query = "SELECT book_price FROM books WHERE book_id='".$arr[$i][0]."'";
+  		$result = mysqli_query($link, $query);
+  		$row = mysqli_fetch_assoc($result);
+    	$query = "INSERT INTO books_transactions (order_id,book_id,price,quantity,category) VALUES('".$order_id."','".$arr[$i][0]."','".$row['book_price']."','".$arr[$i][2]."','".$arr[$i][1]."')";
     	mysqli_query($link, $query);
   	}
   	setcookie("cart","");
+  	header('Refresh:0.1,Url=http://localhost/onlinebookstore/?page=orders');
 ?>
