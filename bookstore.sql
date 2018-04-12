@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2018 at 12:57 AM
+-- Generation Time: Apr 12, 2018 at 05:03 AM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `address_payment` (
 --
 
 INSERT INTO `address_payment` (`address_id`, `first_name`, `last_name`, `email`, `address`, `country`, `state`, `zip`, `card_type`, `name_on_card`, `card_number`, `expiration`, `cvv`) VALUES
-(12, 'Jing', 'Chen', 'jingchen9412@gmail.com', '5700 BUNKERHILL ST  APT 2104                                ', 'United States', 'PA', 15206, 'credit', 'CHEN JING', 123456, '04/28', 123);
+(12, 'Jing', 'Chen', 'jingchen9412@gmail.com', '5700 BUNKERHILL ST  APT 2104                                      ', 'United States', 'PA', 15206, 'credit', 'CHEN JING', 123456, '04/28', 123);
 
 -- --------------------------------------------------------
 
@@ -93,20 +93,21 @@ CREATE TABLE IF NOT EXISTS `books_transactions` (
   `id` int(11) NOT NULL,
   `order_id` varchar(100) NOT NULL,
   `book_id` varchar(100) NOT NULL,
+  `price` double NOT NULL,
   `quantity` int(32) NOT NULL,
   `category` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `books_transactions`
 --
 
-INSERT INTO `books_transactions` (`id`, `order_id`, `book_id`, `quantity`, `category`) VALUES
-(9, '7f19c195a59f7ff17ffc615f1db87a76', '0061124958', 1, 'Hardcover'),
-(10, '7f19c195a59f7ff17ffc615f1db87a76', '0374531269', 1, ''),
-(11, 'eca91fbab2ad0209e4427bf083570c3f', '0061124958', 1, 'paper'),
-(12, 'eca91fbab2ad0209e4427bf083570c3f', '0553380168', 1, 'paper'),
-(13, 'eca91fbab2ad0209e4427bf083570c3f', '0307389731', 45, 'paper');
+INSERT INTO `books_transactions` (`id`, `order_id`, `book_id`, `price`, `quantity`, `category`) VALUES
+(15, 'bf662494dbca9c5d4043da27fb87ae9a', '0061124958', 6.29, 3, 'paper'),
+(16, 'bf662494dbca9c5d4043da27fb87ae9a', '0307389731', 10.87, 2, 'paper'),
+(17, 'bf662494dbca9c5d4043da27fb87ae9a', '0553380168', 10.69, 1, 'paper'),
+(18, 'ff5d526cad138c320ef22ddbdde63198', '037570504X', 0.65, 5, 'paper'),
+(19, 'ff5d526cad138c320ef22ddbdde63198', '0061565318', 11.95, 2, 'paper');
 
 -- --------------------------------------------------------
 
@@ -279,8 +280,8 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 --
 
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `total_cost_price`) VALUES
-('7f19c195a59f7ff17ffc615f1db87a76', '2018-04-12 12:43:44', 'Just Paid', NULL, 2, 13.98),
-('eca91fbab2ad0209e4427bf083570c3f', '2018-04-12 12:53:46', 'Just Paid', NULL, 2, 506.13);
+('bf662494dbca9c5d4043da27fb87ae9a', '2018-04-12 03:55:32', 'Just Paid', NULL, 2, 51.3),
+('ff5d526cad138c320ef22ddbdde63198', '2018-04-12 03:58:11', 'Just Paid', NULL, 2, 27.15);
 
 --
 -- Indexes for dumped tables
@@ -379,7 +380,7 @@ ALTER TABLE `address_payment`
 -- AUTO_INCREMENT for table `books_transactions`
 --
 ALTER TABLE `books_transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `customers`
 --
