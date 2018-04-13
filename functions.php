@@ -1,6 +1,6 @@
 <?php
     session_start();
-
+    
     $link = mysqli_connect("localhost", "root", "mysql", "bookstore");
 
     if (mysqli_connect_errno()) {

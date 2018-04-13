@@ -1,15 +1,17 @@
 <?php
-    if (empty($_COOKIE["admin_id"])){
+    if (empty($_COOKIE["role"])){
     	echo "<script>alert('Please sign in!');</script>";
     	header('Refresh:0.1,Url=http://localhost/onlinebookstore/admin/views/adminLogin.php');
 		die;
-    }
+       
+    } 
     
-    include("../functions.php");
+    include("functions.php");
 
     include("views/header.php");
 
     include("views/home.php");
 	 
     include("views/footer.php");
+
 ?>

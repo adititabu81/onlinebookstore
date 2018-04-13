@@ -18,12 +18,21 @@
 
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">BookStore Admin System</a>
-      
+      <li>
+          <font color="red">Hi ! <?php 
+            $query = "SELECT * FROM ".$_COOKIE["role"]." WHERE ".$_COOKIE["role"]."_id='".$_COOKIE["id"]."'";
+            $result = mysqli_query($link, $query);
+            $row = $result->fetch_assoc();
+            $tmp = $_COOKIE["role"]."_name";
+            echo $_COOKIE["role"]."  ".$row[$tmp];
+          ?></font>
+        </li>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a id="signOut" class="nav-link" href="#">Sign out</a>
+          <a id="signOut" class="nav-link" href="">Sign out</a>
         </li>
       </ul>
+
     </nav>
 
     <div class="container-fluid">
@@ -38,7 +47,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="?page=orders">
                   <span data-feather="file"></span>
                   Orders
                 </a>
@@ -107,6 +116,10 @@
           <?php
             if ($_GET['page'] == 'addBooks') {
                 include("views/addBooks.php");
+            } else if ($_GET['page'] == 'orders') {
+                include("views/orders.php");
+            } else if ($_GET['page'] == 'updateOrder') {
+                include("views/updateOrder.php");
             }
           ?>
         </div>

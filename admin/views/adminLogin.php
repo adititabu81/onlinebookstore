@@ -1,5 +1,5 @@
 <?php
-    if (!empty($_COOKIE["admin_id"])){
+    if (!empty($_COOKIE["role"])){
 
       header('Location: http://localhost/onlinebookstore/admin');
 
@@ -28,15 +28,15 @@
       <img class="mb-4" src="../pic/administrator.png" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input type="password" id="password" class="form-control" placeholder="Password" required>
       <div class="checkbox mb-3">
         <p>
       <label for="select">Roles Select</label>
       <select id="select">
-        <option value="">Manager</option>
-        <option value="">Salesperson</option>
+        <option value="manager">Manager</option>
+        <option value="salesperson">Salesperson</option>
       </select>
     </p>
       </div>
@@ -49,16 +49,17 @@
         $.ajax({
             type: "POST",
             url: "http://localhost/onlinebookstore/admin/actions.php?action=adminLoginIn",
-            data: "",
+            data: "email="+ $("#email").val() + "&password=" + $("#password").val()+ "&role="+ $("#select").val(),
             success: function(result) {
                 if (result == "1") {
                     
                     window.location.assign("http://localhost/onlinebookstore/admin");
+
                     
                 } else {
                     
-                    $("#loginAlert").html(result).show();
-                    
+                    //$("#loginAlert").html(result).show();
+                    alert(result);
                 }
             }
             
