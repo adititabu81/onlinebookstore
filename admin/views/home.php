@@ -120,6 +120,8 @@
                 include("views/orders.php");
             } else if ($_GET['page'] == 'updateOrder') {
                 include("views/updateOrder.php");
+            } else if ($_GET['page'] == 'deleteOrder') {
+                include("views/deleteOrder.php");
             }
           ?>
         </div>

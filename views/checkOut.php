@@ -27,7 +27,7 @@
 	} 
 	//else update address info every time when user checkout
 	else {
-		$query = "UPDATE address_payment SET first_name = '".$firstname."', last_name='".$lastname."', email='".$email."', address='".$address."', country='".$country."', state='".$state."', zip='".$zip."', card_type='".$payment_method."', name_on_card='".$cc_name."', card_number='".$cc_number."',expiration='".$cc_expiration."', cvv='".$cc_cvv."' WHERE address_id ='".$row['customer_address']."'";
+		$query = "UPDATE address_payment SET first_name = '".$firstname."', last_name='".$lastname."', email='$email', address='$address', country='$country', state='$state', zip='$zip', card_type='$payment_method', name_on_card='$cc_name', card_number='$cc_number',expiration='$cc_expiration', cvv='$cc_cvv' WHERE address_id ='".$row['customer_address']."'";
 			mysqli_query($link, $query);	
 	}
 	$order_id = md5(date("Y-m-d h:i:s").$_SESSION['id']);
@@ -38,7 +38,7 @@
   		$query = "SELECT book_price FROM books WHERE book_id='".$arr[$i][0]."'";
   		$result = mysqli_query($link, $query);
   		$row = mysqli_fetch_assoc($result);
-    	$query = "INSERT INTO books_transactions (order_id,book_id,price,quantity,category) VALUES('".$order_id."','".$arr[$i][0]."','".$row['book_price']."','".$arr[$i][2]."','".$arr[$i][1]."')";
+    	$query = "INSERT INTO books_transactions (order_id,book_id,price,quantity,category) VALUES('$order_id','".$arr[$i][0]."','".$row['book_price']."','".$arr[$i][2]."','".$arr[$i][1]."')";
     	mysqli_query($link, $query);
   	}
   	setcookie("cart","");

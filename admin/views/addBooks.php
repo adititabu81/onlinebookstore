@@ -9,11 +9,12 @@
         $author = mysqli_real_escape_string($link, $_POST['author']);
         $publication = mysqli_real_escape_string($link, $_POST['publication']);
         $book_language = mysqli_real_escape_string($link, $_POST['book_language']);
+        $book_description = mysqli_real_escape_string($link, $_POST['book_description']);
         $book_cover_photo = mysqli_real_escape_string($link, $_FILES["cover_photo"]["name"]);
 
         move_uploaded_file($_FILES["cover_photo"]["tmp_name"],"../pic/" . $_FILES["cover_photo"]["name"]);
         
-        $query = "INSERT INTO books VALUES ('$book_id','$book_name','$inventory_amount','$book_price','$book_category','$book_genre','$author','$publication','$book_language','$book_cover_photo');";
+        $query = "INSERT INTO books VALUES ('$book_id','$book_name','$inventory_amount','$book_price','$book_category','$book_genre','$author','$publication','$book_language','$book_cover_photo','$book_description');";
         if(mysqli_query($link, $query));
           echo "<div class=\"alert alert-success\" role=\"alert\">New book has been upload!</div>";
     }
@@ -117,6 +118,16 @@
                 <input type="text" class="form-control" name="book_language" placeholder="" value="" required>
                 <div class="invalid-feedback">
                   Valid Language is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">Description</label>
+                <input type="text" class="form-control" name="book_description" placeholder="" value="" required>
+                <div class="invalid-feedback">
+                  Valid Description is required.
                 </div>
               </div>
             </div>
