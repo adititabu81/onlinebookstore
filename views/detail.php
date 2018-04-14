@@ -6,7 +6,7 @@
  margin-left: -50vw;
  height: 100%;
  left: 50%;'>";
-    
+
 /**
  * Created by PhpStorm.
  * User: Ashutosh
@@ -33,12 +33,12 @@ if ($conn->connect_error) {
 // $qty = $_POST['quantity'];
 // $book_id = $_POST['id'];
 // echo "$book_id";
-// $_SESSION['cart'][$id] = array('type' => $cat, 'quantity' => $qty);   
+// $_SESSION['cart'][$id] = array('type' => $cat, 'quantity' => $qty);
 // }
 
 // else
 $book_id = $_GET['q'];
-    
+
 $stmt = $conn->prepare("SELECT book_name, inventory_amount, book_price, book_category, book_genre, author, publication, book_language, book_cover_photo, book_description FROM books WHERE book_id = ?");
 
 $stmt->bind_param("s", $book_id);
@@ -62,7 +62,7 @@ while($stmt->fetch()) {
        <span style='font-size: 100%'>Publication: " . $publication . "</span><br>
        <span style='font-size: 100%'>Price: $" . $book_price . "</span><br><br><br>";
     echo "<span style='font-size: 100%'>Description: " . $book_description . "</span><br>";
-    
+
     echo "</div>";
 
     echo "<div class='col-lg-3'>";
@@ -70,19 +70,19 @@ while($stmt->fetch()) {
     $keywords = preg_split("/[\s,]+/", $book_category);
     echo "<form method=POST action=\"?page=addCart\">";
     echo "<input type='hidden' name='id' value='$book_id'>";
-    
+
     $i = 0;
-    
+
     foreach($keywords as $value){
         if($i == 0)
         echo "<input type ='radio' name = 'type' value='$value' checked>$value";
         else
         echo "<input type ='radio' name = 'type' value='$value'>$value";
-        
+
         $i++;
     }
-    
-    
+
+
     echo "<br>";
     if ($inventory_amount > 0) {
         echo "<span style='font-size: 150%; color:green'>IN STOCK</span><br>";
@@ -114,17 +114,17 @@ else{
   echo "</div>";
 
     $query = "SELECT customer_name, review, star_rating FROM customers c,book_review br WHERE c.customer_id = br.customer_id AND br.book_id = ? ORDER BY star_rating DESC;";
-    
+
     $stmt = $link->prepare($query);
     $stmt->bind_param("s", $book_id);
     $stmt->execute();
-    
+
     $stmt->store_result();
     $num_of_rows = $stmt->num_rows;
-    
+
     $stmt->bind_result($name,$review,$stars);
-    
-    
+
+
     echo "<br><br><br><br><div class=row>
     Reviews:<br>
     <table class='table'>
@@ -132,18 +132,18 @@ else{
             <tr>
                 <th scope='col'>Name</th>
                 <th scope='col'>Review</th>
-                <th scope='col'>Stars</th>
+                <th scope='col' width=110>Stars</th>
             </tr>
     </thead>";
-     while ($stmt->fetch()) { 
+     while ($stmt->fetch()) {
         echo "<tr>
       <th scope='row'>".$name."</th>
       <td>".$review."</td>";
-         
+
       echo "<td>";
          while($stars > 0){echo "<img src='pic/star.png'>"; $stars--;}
         echo"</td>";
-             
+
         echo "</tr>
         ";}
     echo"</table>
