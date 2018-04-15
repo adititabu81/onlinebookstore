@@ -18,7 +18,7 @@
         ]);
 
         var data2 = google.visualization.arrayToDataTable([
-          ['Store','Sales'],
+          ['Store','Quantity of Sales'],
           <?php
               $sql = "SELECT store_id,count(*) as sales, SUM(price*quantity) as profit FROM books_transactions JOIN transactions ON books_transactions.order_id=transactions.order_id GROUP BY store_id ORDER BY sales DESC";
               $result = mysqli_query($link, $sql);
@@ -36,9 +36,9 @@
           hAxis: {
           viewWindow: {
                   min: 8000,
-                  max: 12000
+                  max: 13000
               },
-              ticks: [8000, 9000, 10000, 11000, 12000] // display labels every 25
+              ticks: [8000, 9000, 10000, 11000, 12000,13000] // display labels every 25
           },
           bars: 'horizontal' // Required for Material Bar Charts.
         };
@@ -46,7 +46,7 @@
         var options2 = {
           chart: {
             title: 'Store Performance',
-            subtitle: 'Store, Sales : 2013-2018',
+            subtitle: 'Store, Quantity of Sales : 2013-2018',
           },
 
           bars: 'horizontal' // Required for Material Bar Charts.

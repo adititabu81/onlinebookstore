@@ -29,7 +29,7 @@
 <body class="bg-light">
 
     <div class="container">
-      
+
 
       <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
@@ -42,7 +42,7 @@
               ?></span>
           </h4>
           <ul class="list-group mb-3">
-            <?php 
+            <?php
               $sum = 0.0;
               if(!empty($arr[0])){
               foreach ($arr as $value) {
@@ -55,7 +55,7 @@
                 $book_price;
                 $row = $result->fetch_assoc();
                 foreach($row as $key=>$value){
-                    switch ($key){ 
+                    switch ($key){
                     case "book_name":
                     $book_name = $value;
                     break;
@@ -65,8 +65,8 @@
                     default:
                     break;
                     }
-                  } 
-                
+                  }
+
                 $total = (double)$quantity*(double)$book_price;
                 $sum += $total;
                 echo "<li id=\"".$book_id."\"class=\"list-group-item d-flex justify-content-between lh-condensed\">
@@ -81,7 +81,7 @@
             ?>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD)</span>
-              <strong>$<?php 
+              <strong>$<?php
               echo $sum;
               ?></strong>
             </li>
@@ -144,12 +144,12 @@
               <div class="col-md-4 mb-3">
                 <label for="state">State</label>
                 <select class="custom-select d-block w-100" name="state" required>
-                  <option <?php 
-                    echo "value=\"".$state."\">"; 
-                    if($state) 
+                  <option <?php
+                    echo "value=\"".$state."\">";
+                    if($state)
                       echo $states[$state];
                     else
-                      echo "Choose...";?> 
+                      echo "Choose...";?>
                     </option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -215,7 +215,7 @@
                 </div>
               </div>
             </div>
-            
+
 
             <h4 class="mb-3">Payment</h4>
 
@@ -269,14 +269,14 @@
       </div>
 
       <footer class="my-5 pt-5 text-muted text-center text-small">
-        
+
       </footer>
     </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../../../assets/js/vendor/popper.min.js"></script>
@@ -284,7 +284,7 @@
     <script src="../../../../assets/js/vendor/holder.min.js"></script>
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
-      
+
       (function() {
 
         'use strict';

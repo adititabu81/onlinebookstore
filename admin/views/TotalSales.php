@@ -27,30 +27,30 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-          
+
           $query = "SELECT books.book_name as n,price*SUM(quantity) AS t FROM books_transactions JOIN books ON books_transactions.book_id = books.book_id GROUP BY books_transactions.book_id ORDER BY  t DESC LIMIT 10;";
 
 $stmt = $conn->prepare($query);
     $stmt->execute();
-    
+
     $stmt->store_result();
     $num_of_rows = $stmt->num_rows;
-    
+
     $stmt->bind_result($id,$qty);
 echo "var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Sales%');";
+        data.addColumn('number', 'Sales $');";
           while($stmt->fetch()) {
               $string = addslashes($id);
  echo "data.addRows([
           ['".$string."', ".$qty."]
         ]);";
 }
-          
+
           ?>
         // Create the data table.
-        
-       
+
+
 
         // Set chart options
         var options = {'title':'Sales Distribution per book',
@@ -67,7 +67,7 @@ echo "var data = new google.visualization.DataTable();
   <body>
     <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
-      
+
   </body>
 </html>
 

@@ -8,10 +8,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <!-- Bootstrap CSS -->
-    
+
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
+
     <style type="text/css">
     .card-link{
     overflow: hidden;
@@ -25,19 +25,19 @@
       min-height:450px;
     }
 
-  
+
 </style>
   </head>
   <body>
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light ">
   <a class="navbar-brand" href="http://localhost/onlinebookstore/"><img src="pic/bookstore_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">BookStore</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+  <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="http://localhost/onlinebookstore/?page=search">AllBooks <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
@@ -49,19 +49,19 @@
     </ul>
     <form class="form-inline">
     <input type="hidden" name="page" value="search">
-    <input type="text" name="q" class="form-control mr-sm-2" id="search" placeholder="Search Books">
+    <input type="text" name="q" class="form-control mr-sm-2" id="search" placeholder="<?php if($_GET['q'])echo $_GET['q'];else echo "Search Books";?>">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
     <div class="loginandsignup" style="position: fixed;right: 10px;">
-      
+
       <?php if ($_SESSION['id']) { ?>
         <a href="?page=cart"><img src="pic/cart.png"  width="35" height="35"></a>
         <a class="btn btn-outline-success " href="?function=logout">Logout</a>
-      
+
       <?php } else { ?>
-      
+
     <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#myModal">Login/Signup</button>
-      
+
       <?php } ?>
   </div>
   </div>
