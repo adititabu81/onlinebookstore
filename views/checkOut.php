@@ -1,5 +1,5 @@
 <?php
-	
+
 	$firstname = mysqli_real_escape_string($link, $_POST['firstName']);
 	$lastname = mysqli_real_escape_string($link, $_POST['lastName']);
 	$email = mysqli_real_escape_string($link, $_POST['email']);
@@ -24,11 +24,11 @@
 	$id = mysqli_insert_id($link);
 	$query = "UPDATE customers SET customer_address='".$id."' WHERE customer_id='".$customer_id."'";
 	mysqli_query($link, $query);
-	} 
+	}
 	//else update address info every time when user checkout
 	else {
 		$query = "UPDATE address_payment SET first_name = '".$firstname."', last_name='".$lastname."', email='$email', address='$address', country='$country', state='$state', zip='$zip', card_type='$payment_method', name_on_card='$cc_name', card_number='$cc_number',expiration='$cc_expiration', cvv='$cc_cvv' WHERE address_id ='".$row['customer_address']."'";
-			mysqli_query($link, $query);	
+			mysqli_query($link, $query);
 	}
 	$order_id = md5(date("Y-m-d h:i:s").$_SESSION['id']);
 	$query = "INSERT INTO transactions (order_id,order_date,order_status,customer_id,store_id,total_cost_price)VALUES('".$order_id."','".date("Y-m-d h:i:s")."','Paid','".$_SESSION['id']."','".$state."','".$_POST["totalPrice"]."')";
@@ -40,6 +40,11 @@
   		$row = mysqli_fetch_assoc($result);
     	$query = "INSERT INTO books_transactions (order_id,book_id,price,quantity,category) VALUES('$order_id','".$arr[$i][0]."','".$row['book_price']."','".$arr[$i][2]."','".$arr[$i][1]."')";
     	mysqli_query($link, $query);
+    	$result = mysqli_query($link, "SELECT inventory_amount FROM books WHERE book_id='".$arr[$i][0]."'");
+    	$row = mysqli_fetch_assoc($result);
+    	$inventory_amount = $row['inventory_amount'];
+    	$inventory_amount = $inventory_amount - $arr[$i][2];
+    	mysqli_query($link, "UPDATE books SET inventory_amount=".$inventory_amount." WHERE book_id='".$arr[$i][0]."'");
   	}
   	setcookie("cart","");
   	header('Refresh:0.1,Url=http://localhost/onlinebookstore/?page=orders');

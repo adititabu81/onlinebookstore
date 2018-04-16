@@ -12,7 +12,7 @@
 
     if ($_GET['function'] == "logout") {
 
-        setcookie("cart","");
+        setcookie("cart","",time()-3600);
         session_unset();
 
     }
