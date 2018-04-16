@@ -35,16 +35,18 @@
 	mysqli_query($link, $query);
 	$arr = unserialize($_COOKIE["cart"]);
   	for($i = 0; $i < count($arr);$i++){
-  		$query = "SELECT book_price FROM books WHERE book_id='".$arr[$i][0]."'";
-  		$result = mysqli_query($link, $query);
-  		$row = mysqli_fetch_assoc($result);
-    	$query = "INSERT INTO books_transactions (order_id,book_id,price,quantity,category) VALUES('$order_id','".$arr[$i][0]."','".$row['book_price']."','".$arr[$i][2]."','".$arr[$i][1]."')";
-    	mysqli_query($link, $query);
     	$result = mysqli_query($link, "SELECT inventory_amount FROM books WHERE book_id='".$arr[$i][0]."'");
     	$row = mysqli_fetch_assoc($result);
     	$inventory_amount = $row['inventory_amount'];
     	$inventory_amount = $inventory_amount - $arr[$i][2];
-    	mysqli_query($link, "UPDATE books SET inventory_amount=".$inventory_amount." WHERE book_id='".$arr[$i][0]."'");
+    	if($inventory_amount>0){
+    		mysqli_query($link, "UPDATE books SET inventory_amount=".$inventory_amount." WHERE book_id='".$arr[$i][0]."'");
+    		$query = "SELECT book_price FROM books WHERE book_id='".$arr[$i][0]."'";
+  			$result = mysqli_query($link, $query);
+  			$row = mysqli_fetch_assoc($result);
+    		$query = "INSERT INTO books_transactions (order_id,book_id,price,quantity,category) VALUES('$order_id','".$arr[$i][0]."','".$row['book_price']."','".$arr[$i][2]."','".$arr[$i][1]."')";
+    		mysqli_query($link, $query);
+    	}
   	}
   	setcookie("cart","");
   	header('Refresh:0.1,Url=http://localhost/onlinebookstore/?page=orders');

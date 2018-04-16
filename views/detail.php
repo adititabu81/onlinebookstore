@@ -105,7 +105,7 @@ if ($inventory_amount > 0) {
     echo "<input type='submit' class='btn btn-outline-success' value='Add to Cart'>";
 }
 else{
-    echo "<input type='submit' value='Add to Cart' disabled>";
+    echo "<input type='submit' class='btn btn-outline-success' value='Add to Cart' disabled>";
 }
     echo "</form>";
     echo "</div>";

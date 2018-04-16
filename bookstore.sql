@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2018 at 12:13 AM
+-- Generation Time: Apr 16, 2018 at 04:14 AM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -20,7 +20,16 @@ SET time_zone = "+00:00";
 -- Database: `bookstore`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `monthlysales_of_a_year`(IN year INT(11))
+BEGIN 
+SELECT DATE_FORMAT(transactions.order_date, '%M')as sales_month, SUM(total_cost_price)*100/(SELECT SUM(total_cost_price) FROM transactions WHERE DATE_FORMAT(transactions.order_date, '%Y') = year)as sales_percent FROM transactions WHERE DATE_FORMAT(transactions.order_date, '%Y') = year GROUP BY sales_month ORDER BY  sales_percent DESC;
+END$$
 
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -49,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `address_payment` (
 --
 
 INSERT INTO `address_payment` (`address_id`, `first_name`, `last_name`, `email`, `address`, `country`, `state`, `zip`, `card_type`, `name_on_card`, `card_number`, `expiration`, `cvv`) VALUES
-(15, 'Jing', 'Chen', 'jingchen9412@gmail.com', '5700 BUNKERHILL ST  APT 2104', 'United States', 'PA', 15206, 'credit', 'CHEN JING', 1321, '1321', 312);
+(15, 'Jing', 'Chen', 'jingchen9412@gmail.com', '5700 BUNKERHILL ST  APT 2104    ', 'United States', 'PA', 15206, 'credit', 'CHEN JING', 1321, '1321', 312);
 
 -- --------------------------------------------------------
 
@@ -76,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `books` (
 --
 
 INSERT INTO `books` (`book_id`, `book_name`, `inventory_amount`, `book_price`, `book_category`, `book_genre`, `author`, `publication`, `book_language`, `book_cover_photo`, `book_description`) VALUES
-('0061124958', 'Charlotte''s Web', 60, 6.29, 'paper Hardcover AudioCD', 'Children Classics', 'E. B White', 'HarperCollins', 'English', '61+3z1o4oUL._AC_SR201,266_.jpg', 'The classic story of loyalty, trust, and sacrifice comes to life in this live-action adaptation. Fern is one of the only two living beings who sees that Wilbur is a special animal as she raises him, the runt of the litter, into a terrific and radiant pig. As Wilbur moves into a new barn, he begins a second profound friendship with the most unlikely of creatures -- a spider named Charlotte -- and their bond inspires the animals around them to come together as a family. When the word gets out that Wilburs days are numbered,it seems that only a miracle will save his life. A determined Charlotte -- who sees miracles in the ordinary - spins words into her web in an effort to convince the farmer that Wilbur is "some pig" and worth saving'),
+('0061124958', 'Charlotte''s Web', 59, 6.29, 'paper Hardcover AudioCD', 'Children Classics', 'E. B White', 'HarperCollins', 'English', '61+3z1o4oUL._AC_SR201,266_.jpg', 'The classic story of loyalty, trust, and sacrifice comes to life in this live-action adaptation. Fern is one of the only two living beings who sees that Wilbur is a special animal as she raises him, the runt of the litter, into a terrific and radiant pig. As Wilbur moves into a new barn, he begins a second profound friendship with the most unlikely of creatures -- a spider named Charlotte -- and their bond inspires the animals around them to come together as a family. When the word gets out that Wilburs days are numbered,it seems that only a miracle will save his life. A determined Charlotte -- who sees miracles in the ordinary - spins words into her web in an effort to convince the farmer that Wilbur is "some pig" and worth saving'),
 ('0061146307', 'The Bad Beginning: Or, Orphans! (A Series of Unfortunate Events, Book 1)', 100, 5.12, 'paperback', ' Children''s Books', 'Lemony Snicket', 'HarperCollins; Reprint edition', 'English', '51qn1175UaL._AC_SR201,266_.jpg', 'Are you made fainthearted by death? Does fire unnerve you? Is a villain something that might crop up in future nightmares of yours? Are you thrilled by nefarious plots? Is cold porridge upsetting to you? Vicious threats? Hooks? Uncomfortable clothing?  It is likely that your answers will reveal A Series of Unfortunate Events to be ill-suited for your personal use. A librarian, bookseller, or acquaintance should be able to suggest books more appropriate for your fragile temperament. But to the rarest of readers we say, "Proceed, but cautiously."'),
 ('0061565318', 'Bel Canto (P.S.)', 99, 11.95, 'paper Hardcover AudioCD', 'Literature  Fiction  Dramas  Plays  Regional Cultural', 'Ann Patchett', 'Harper Perennial Modern Classics', 'English', '51LOpWsGN5L._AC_SR201,266_.jpg', 'Bel Canto is the fourth novel by American author Ann Patchett, published in 2001 by Perennial, \r\nan imprint of HarperCollins Publishers. It was awarded both the Orange Prize for Fiction and PEN/Faulkner Award for Fiction.'),
 ('0307389731', 'Love in the Time of Cholera (Oprah''s Book Club)', 50, 10.87, 'paper Hardcover AudioCD Kindle', ' Literature Fiction  Caribbean Latin American', 'Gabriel Garcia Marquez', 'Vintage', 'English', '91jkLH6yk0L._AC_SR201,266_.jpg', 'Love in the Time of Cholera is a novel by Colombian Nobel prize winning author Gabriel García Márquez. \r\nThe novel was first published in Spanish in 1985. Alfred A. Knopf published an English translation in 1988, \r\nand an English-language movie adaptation was released in 2007.'),
@@ -106,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `books_transactions` (
   `price` double NOT NULL,
   `quantity` int(32) NOT NULL,
   `category` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=22174 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22176 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `books_transactions`
@@ -22318,7 +22327,9 @@ INSERT INTO `books_transactions` (`id`, `order_id`, `book_id`, `price`, `quantit
 (22169, 'bec26f4a5bef41402f39699b991bca01', '0061146307', 5.12, 3, 'Audio CD'),
 (22170, 'fa246d0262c3925617b0c72bb20eeb1d', '0061146307', 5.12, 2, 'paperback'),
 (22171, 'fa246d0262c3925617b0c72bb20eeb1d', '037570504X', 0.65, 2, 'Audiobook'),
-(22173, '0f27ce2ea3064d8412e61976ba4ed652', '0061124958', 6.29, 1, 'paper');
+(22173, '0f27ce2ea3064d8412e61976ba4ed652', '0061124958', 6.29, 1, 'paper'),
+(22174, '7cb2644da0b2ac6238894c76443a3db2', '0061124958', 6.29, 1, 'paper'),
+(22175, 'c8484196eb09783bc3bbfb6655619880', '0061124958', 6.29, 1, 'paper');
 
 -- --------------------------------------------------------
 
@@ -28534,6 +28545,7 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('7cac11e2f46ed46c339ec3d569853759', '2013-10-17 03:26:49', 'Paid', NULL, 177, 'KY', 4.82),
 ('7caf5e22ea3eb8175ab518429c8589a4', '2016-06-17 10:23:38', 'Paid', NULL, 774, 'IA', 10.16),
 ('7cb1f2f2baf6ab2ae929ad8cb88d6210', '2015-03-26 23:33:20', 'Paid', NULL, 594, 'UT', 23.75),
+('7cb2644da0b2ac6238894c76443a3db2', '2018-04-16 02:37:36', 'Paid', NULL, 1001, 'PA', 6.29),
 ('7cb36e23529e4de4c41460940cc85e6e', '2016-06-23 11:21:42', 'Paid', NULL, 812, 'UT', 10.45),
 ('7cbbc409ec990f19c78c75bd1e06f215', '2013-09-10 10:26:27', 'Paid', NULL, 159, 'MS', 38.59),
 ('7cc234202e98d2722580858573fd0817', '2014-05-23 17:23:23', 'Paid', NULL, 614, 'HI', 17.73),
@@ -28643,9 +28655,9 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('7f278ad602c7f47aa76d1bfc90f20263', '2013-09-05 07:29:34', 'Paid', NULL, 981, 'TX', 15.2),
 ('7f2be1b45d278ac18804b79207a24c53', '2013-03-12 10:58:59', 'Paid', NULL, 228, 'NC', 38.73),
 ('7f2cba89a7116c7c6b0a769572d5fad9', '2014-01-26 10:34:23', 'Paid', NULL, 706, 'MA', 23.71),
-('7f367281bba91bd682d613522a67949a', '2016-09-06 10:11:52', 'Paid', NULL, 679, 'OR', 11.41),
-('7f39f8317fbdb1988ef4c628eba02591', '2013-08-07 05:00:48', 'Paid', NULL, 454, 'RI', 41.38);
+('7f367281bba91bd682d613522a67949a', '2016-09-06 10:11:52', 'Paid', NULL, 679, 'OR', 11.41);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('7f39f8317fbdb1988ef4c628eba02591', '2013-08-07 05:00:48', 'Paid', NULL, 454, 'RI', 41.38),
 ('7f3ad9c65beb20ccbd34a05041b4420b', '2016-08-25 15:22:17', 'Paid', NULL, 984, 'SC', 50.77),
 ('7f3fcfed9109f27a4b9e4abd169d6e43', '2018-01-08 04:36:34', 'Paid', NULL, 995, 'NV', 32.99),
 ('7f489f642a0ddb10272b5c31057f0663', '2014-12-23 20:26:49', 'Paid', NULL, 234, 'PA', 9.95),
@@ -29194,9 +29206,9 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('8c9f32e03aeb2e3000825c8c875c4edd', '2015-05-09 20:32:11', 'Paid', NULL, 900, 'UT', 6.52),
 ('8ca01ea920679a0fe3728441494041b9', '2017-11-20 18:34:11', 'Paid', NULL, 491, 'NC', 19.94),
 ('8ca070cc474c02335277c16ce15a469b', '2016-11-08 11:48:53', 'Paid', NULL, 538, 'ID', 3.65),
-('8ca696ca160520b1cf5a569b4be525e8', '2016-02-04 12:15:46', 'Paid', NULL, 489, 'SD', 18.72),
-('8ca8da41fe1ebc8d3ca31dc14f5fc56c', '2013-02-18 20:13:00', 'Paid', NULL, 779, 'ID', 35.74);
+('8ca696ca160520b1cf5a569b4be525e8', '2016-02-04 12:15:46', 'Paid', NULL, 489, 'SD', 18.72);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('8ca8da41fe1ebc8d3ca31dc14f5fc56c', '2013-02-18 20:13:00', 'Paid', NULL, 779, 'ID', 35.74),
 ('8caa38721906c1a0bb95c80fab33a893', '2013-01-26 13:40:34', 'Paid', NULL, 753, 'NC', 29.89),
 ('8cb22bdd0b7ba1ab13d742e22eed8da2', '2017-07-20 11:50:24', 'Paid', NULL, 287, 'VA', 2.17),
 ('8cb94e7a9661ea20b1293c589216d396', '2013-03-27 18:23:29', 'Paid', NULL, 349, 'NE', 25.67),
@@ -29745,9 +29757,9 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('9ab8a8a9349eb1dd73ce155ce64c80fa', '2014-03-11 05:33:53', 'Paid', NULL, 975, 'MO', 25.93),
 ('9abe36658bff8131d5a0923ebc196d0e', '2016-01-07 06:32:15', 'Paid', NULL, 499, 'KS', 40.82),
 ('9ac1382fd8fc4b631594aa135d16ad75', '2014-05-30 03:49:49', 'Paid', NULL, 32, 'HI', 56.51),
-('9ac403da7947a183884c18a67d3aa8de', '2016-01-24 13:10:20', 'Paid', NULL, 653, 'OR', 22.7),
-('9ac5a6d86e8924182271bd820acbce0e', '2016-12-15 05:56:31', 'Paid', NULL, 936, 'MD', 0.98);
+('9ac403da7947a183884c18a67d3aa8de', '2016-01-24 13:10:20', 'Paid', NULL, 653, 'OR', 22.7);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('9ac5a6d86e8924182271bd820acbce0e', '2016-12-15 05:56:31', 'Paid', NULL, 936, 'MD', 0.98),
 ('9acf7769aeea55e2b2505c88710d4293', '2017-08-12 13:04:37', 'Paid', NULL, 200, 'LA', 58.43),
 ('9ad6aaed513b73148b7d49f70afcfb32', '2016-09-17 14:19:17', 'Paid', NULL, 834, 'DE', 36.6),
 ('9ad97add7f3d9f29cd262159d4540c96', '2014-08-10 10:14:12', 'Paid', NULL, 814, 'AK', 3.48),
@@ -30296,9 +30308,9 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('a894b83c9b7a00dba6c52cecf7a31fbb', '2016-04-06 02:38:35', 'Paid', NULL, 726, 'NH', 3.24),
 ('a89b71bb5227c75d463dd82a03115738', '2016-09-05 06:49:35', 'Paid', NULL, 853, 'DC', 52.23),
 ('a89cf525e1d9f04d16ce31165e139a4b', '2016-06-27 03:58:04', 'Paid', NULL, 142, 'WA', 12.11),
-('a8a427afafda854020c951467cc2b4b7', '2017-01-18 17:10:35', 'Paid', NULL, 803, 'NC', 13.7),
-('a8a5d22acb383aae55937a6936e120b0', '2016-07-14 00:07:27', 'Paid', NULL, 125, 'GA', 28.77);
+('a8a427afafda854020c951467cc2b4b7', '2017-01-18 17:10:35', 'Paid', NULL, 803, 'NC', 13.7);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('a8a5d22acb383aae55937a6936e120b0', '2016-07-14 00:07:27', 'Paid', NULL, 125, 'GA', 28.77),
 ('a8aa681aaa4588a8dbd3b42b26d59a1a', '2015-01-21 13:25:40', 'Paid', NULL, 511, 'CT', 13.13),
 ('a8abb4bb284b5b27aa7cb790dc20f80b', '2013-06-06 00:27:31', 'Paid', NULL, 104, 'CT', 19.1),
 ('a8acc28734d4fe90ea24353d901ae678', '2015-02-09 15:17:11', 'Paid', NULL, 768, 'ME', 24.76),
@@ -30847,9 +30859,9 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('b6d767d2f8ed5d21a44b0e5886680cb9', '2016-06-09 04:02:39', 'Paid', NULL, 909, 'AL', 9.72),
 ('b6dfd41875bc090bd31d0b1740eb5b1b', '2014-08-01 05:50:25', 'Paid', NULL, 49, 'RI', 29.96),
 ('b6e32320fa6bc5a588b90183b95dc028', '2018-01-17 21:39:19', 'Paid', NULL, 982, 'NH', 39.06),
-('b6e584419a62da6229cf347e5ccfa166', '2018-01-21 05:32:53', 'Paid', NULL, 146, 'MN', 9.52),
-('b6e710870acb098e584277457ba89d68', '2017-12-31 14:17:47', 'Paid', NULL, 327, 'UT', 11.8);
+('b6e584419a62da6229cf347e5ccfa166', '2018-01-21 05:32:53', 'Paid', NULL, 146, 'MN', 9.52);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('b6e710870acb098e584277457ba89d68', '2017-12-31 14:17:47', 'Paid', NULL, 327, 'UT', 11.8),
 ('b6edc1cd1f36e45daf6d7824d7bb2283', '2014-12-28 03:22:01', 'Paid', NULL, 212, 'DE', 37.82),
 ('b6f0479ae87d244975439c6124592772', '2015-01-22 00:36:54', 'Paid', NULL, 860, 'LA', 8.88),
 ('b6f76d7dbb84020faf70b18a13d73a27', '2014-12-17 01:35:34', 'Paid', NULL, 738, 'HI', 45.67),
@@ -31398,9 +31410,9 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('c5bbd980e5ab2c17413ec02bd757a9e5', '2016-03-30 18:29:06', 'Paid', NULL, 25, 'TX', 18.83),
 ('c5c1bda1194f9423d744e0ef67df94ee', '2015-12-15 20:14:46', 'Paid', NULL, 153, 'NV', 17.15),
 ('c5c1cb0bebd56ae38817b251ad72bedb', '2016-10-04 09:49:42', 'Paid', NULL, 260, 'OK', 13.72),
-('c5c3d4fe6b2cc463c7d7ecba17cc9de7', '2015-04-06 13:54:48', 'Paid', NULL, 767, 'NV', 15.49),
-('c5c53759e4dd1bfe8b3dcfec37d0ea72', '2015-09-13 04:27:46', 'Paid', NULL, 395, 'AL', 43.23);
+('c5c3d4fe6b2cc463c7d7ecba17cc9de7', '2015-04-06 13:54:48', 'Paid', NULL, 767, 'NV', 15.49);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('c5c53759e4dd1bfe8b3dcfec37d0ea72', '2015-09-13 04:27:46', 'Paid', NULL, 395, 'AL', 43.23),
 ('c5c64c10cfd77b16a03aa81f09499f25', '2015-09-30 06:09:25', 'Paid', NULL, 403, 'IL', 8.17),
 ('c5cc17e395d3049b03e0f1ccebb02b4d', '2015-11-13 15:27:26', 'Paid', NULL, 588, 'CA', 8.89),
 ('c5d215777c229704a7862de577d40a73', '2014-08-04 22:40:14', 'Paid', NULL, 114, 'TN', 20.73),
@@ -31504,6 +31516,7 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('c82b013313066e0702d58dc70db033ca', '2016-11-10 07:46:32', 'Paid', NULL, 87, 'NV', 19.78),
 ('c831e9b5f6c9bab6b23c26c2dab2a29c', '2017-04-07 06:01:55', 'Paid', NULL, 663, 'MA', 20.16),
 ('c8461bf13fca8a2b9912ab2eb1668e4b', '2014-08-14 02:34:32', 'Paid', NULL, 721, 'WI', 48.94),
+('c8484196eb09783bc3bbfb6655619880', '2018-04-16 04:06:10', 'Paid', NULL, 1001, 'PA', 6.29),
 ('c850371fda6892fbfd1c5a5b457e5777', '2016-05-18 04:12:03', 'Paid', NULL, 726, 'MD', 12.37),
 ('c850c535b6b72487b20cee5d7434506d', '2016-06-08 10:06:04', 'Paid', NULL, 612, 'KS', 39.42),
 ('c85b2ea9a678e74fdc8bafe5d0707c31', '2014-11-01 07:38:53', 'Paid', NULL, 302, 'PA', 38.11),
@@ -31948,10 +31961,10 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('d31a52679469593424c94da10611eff2', '2017-07-28 03:28:59', 'Paid', NULL, 677, 'SC', 27.05),
 ('d324a0cc02881779dcda44a675fdcaaa', '2017-08-03 15:43:39', 'Paid', NULL, 568, 'GA', 13.73),
 ('d33174c464c877fb03e77efdab4ae804', '2017-08-27 14:52:35', 'Paid', NULL, 499, 'HI', 7.4),
-('d339a8932df05de23ae3d9e29df4b25f', '2015-06-29 08:56:53', 'Paid', NULL, 261, 'NE', 11.4),
-('d347df3d73566108aa6d1b5d37b59703', '2014-01-31 03:03:42', 'Paid', NULL, 91, 'UT', 39.09),
-('d34a281acc62c6bec66425f0ad6dd645', '2015-10-21 17:44:19', 'Paid', NULL, 461, 'IL', 28.78);
+('d339a8932df05de23ae3d9e29df4b25f', '2015-06-29 08:56:53', 'Paid', NULL, 261, 'NE', 11.4);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('d347df3d73566108aa6d1b5d37b59703', '2014-01-31 03:03:42', 'Paid', NULL, 91, 'UT', 39.09),
+('d34a281acc62c6bec66425f0ad6dd645', '2015-10-21 17:44:19', 'Paid', NULL, 461, 'IL', 28.78),
 ('d34ab169b70c9dcd35e62896010cd9ff', '2017-08-09 18:58:58', 'Paid', NULL, 915, 'WI', 39.67),
 ('d35a29602005cb55aa57a5f683c8e0c2', '2013-06-27 23:06:49', 'Paid', NULL, 394, 'MS', 21.13),
 ('d35b05a832e2bb91f110d54e34e2da79', '2013-01-25 18:39:26', 'Paid', NULL, 42, 'OK', 0.83),
@@ -32499,10 +32512,10 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('e0a209539d1e74ab9fe46b9e01a19a97', '2014-11-20 19:21:07', 'Paid', NULL, 543, 'AZ', 0.32),
 ('e0ab531ec312161511493b002f9be2ee', '2013-05-09 13:22:58', 'Paid', NULL, 725, 'ND', 54.89),
 ('e0ae4561193dbf6e4cf7e8f4006948e3', '2018-01-14 06:25:22', 'Paid', NULL, 819, 'AL', 38.27),
-('e0b0f9051084fd476926501af19e1e96', '2015-07-31 09:17:40', 'Paid', NULL, 742, 'ME', 45.12),
-('e0b60d939b4a80628dfd66b1e0bb65fa', '2013-12-14 17:47:58', 'Paid', NULL, 407, 'NY', 50.18),
-('e0be0edcb00cc770525f1400c1666b0f', '2015-12-30 13:34:28', 'Paid', NULL, 478, 'MS', 20.88);
+('e0b0f9051084fd476926501af19e1e96', '2015-07-31 09:17:40', 'Paid', NULL, 742, 'ME', 45.12);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('e0b60d939b4a80628dfd66b1e0bb65fa', '2013-12-14 17:47:58', 'Paid', NULL, 407, 'NY', 50.18),
+('e0be0edcb00cc770525f1400c1666b0f', '2015-12-30 13:34:28', 'Paid', NULL, 478, 'MS', 20.88),
 ('e0c641195b27425bb056ac56f8953d24', '2017-08-02 10:11:46', 'Paid', NULL, 770, 'NJ', 20.9),
 ('e0c7ccc47b2613c82d1073a4214deecc', '2016-05-17 21:47:57', 'Paid', NULL, 756, 'NM', 46.76),
 ('e0cd3f16f9e883ca91c2a4c24f47b3d9', '2014-11-15 22:53:57', 'Paid', NULL, 74, 'ID', 23.81),
@@ -33050,10 +33063,10 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('efdde87c66fe4e6dc73a2ab6111ca58a', '2013-01-10 16:27:35', 'Paid', NULL, 410, 'NM', 14.92),
 ('efdf562ce2fb0ad460fd8e9d33e57f57', '2017-05-03 08:13:41', 'Paid', NULL, 699, 'UT', 48.69),
 ('efe34c4e2190e97d1adc625902822b13', '2015-09-13 19:45:36', 'Paid', NULL, 192, 'SD', 35.13),
-('efe937780e95574250dabe07151bdc23', '2018-02-15 18:02:37', 'Paid', NULL, 98, 'NJ', 11.69),
-('eff7451f28530f1defbd5e78bb67a742', '2017-03-11 00:10:45', 'Paid', NULL, 469, 'NH', 44.82),
-('effc299a1addb07e7089f9b269c31f2f', '2013-02-01 12:28:28', 'Paid', NULL, 380, 'KY', 41.54);
+('efe937780e95574250dabe07151bdc23', '2018-02-15 18:02:37', 'Paid', NULL, 98, 'NJ', 11.69);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('eff7451f28530f1defbd5e78bb67a742', '2017-03-11 00:10:45', 'Paid', NULL, 469, 'NH', 44.82),
+('effc299a1addb07e7089f9b269c31f2f', '2013-02-01 12:28:28', 'Paid', NULL, 380, 'KY', 41.54),
 ('effffa8deef3c927fefc014850129bb6', '2014-05-19 02:59:14', 'Paid', NULL, 981, 'HI', 3.84),
 ('f0031c7a91d74015a9addfbc589f3fe5', '2013-01-23 12:07:44', 'Paid', NULL, 252, 'AK', 31.24),
 ('f005e17eabbb0d38b06b8a78f3637d85', '2017-10-17 13:04:16', 'Paid', NULL, 557, 'AK', 53.14),
@@ -33601,10 +33614,10 @@ INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salespers
 ('fd1d83de2517a02d4e221ede9a681432', '2016-09-02 09:46:10', 'Paid', NULL, 134, 'FL', 21.56),
 ('fd272fe04b7d4e68effd01bddcc6bb34', '2018-01-03 15:41:16', 'Paid', NULL, 669, 'LA', 10.34),
 ('fd2ae8ec902471d8956fca3486031013', '2015-06-26 09:11:22', 'Paid', NULL, 480, 'OR', 22.61),
-('fd2c5e4680d9a01dba3aada5ece22270', '2013-03-30 01:29:46', 'Paid', NULL, 907, 'OK', 5.13),
-('fd348179ec677c5560d4cd9c3ffb6cd9', '2015-05-15 03:55:09', 'Paid', NULL, 946, 'NY', 58.01),
-('fd3ae753500ad06fd8fa224f28bcac59', '2013-03-30 19:15:41', 'Paid', NULL, 432, 'NC', 10.48);
+('fd2c5e4680d9a01dba3aada5ece22270', '2013-03-30 01:29:46', 'Paid', NULL, 907, 'OK', 5.13);
 INSERT INTO `transactions` (`order_id`, `order_date`, `order_status`, `salesperson_id`, `customer_id`, `store_id`, `total_cost_price`) VALUES
+('fd348179ec677c5560d4cd9c3ffb6cd9', '2015-05-15 03:55:09', 'Paid', NULL, 946, 'NY', 58.01),
+('fd3ae753500ad06fd8fa224f28bcac59', '2013-03-30 19:15:41', 'Paid', NULL, 432, 'NC', 10.48),
 ('fd45c64e026040dbcb83395829d2aea5', '2016-01-13 19:56:30', 'Paid', NULL, 125, 'HI', 0.12),
 ('fd45ebc1e1d76bc1fe0ba933e60e9957', '2015-03-19 18:07:10', 'Paid', NULL, 271, 'ID', 4.85),
 ('fd4771e85e1f916f239624486bff502d', '2016-02-10 22:01:46', 'Paid', NULL, 244, 'ND', 12.77),
@@ -33815,7 +33828,7 @@ ALTER TABLE `address_payment`
 -- AUTO_INCREMENT for table `books_transactions`
 --
 ALTER TABLE `books_transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22174;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22176;
 --
 -- AUTO_INCREMENT for table `customers`
 --
