@@ -32,6 +32,7 @@
 	}
 	$order_id = md5(date("Y-m-d h:i:s").$_SESSION['id']);
 	$query = "INSERT INTO transactions (order_id,order_date,order_status,customer_id,store_id,total_cost_price)VALUES('".$order_id."','".date("Y-m-d h:i:s")."','Paid','".$_SESSION['id']."','".$state."','".$_POST["totalPrice"]."')";
+
 	mysqli_query($link, $query);
 	$arr = unserialize($_COOKIE["cart"]);
   	for($i = 0; $i < count($arr);$i++){
@@ -46,6 +47,7 @@
   			$row = mysqli_fetch_assoc($result);
     		$query = "INSERT INTO books_transactions (order_id,book_id,price,quantity,category) VALUES('$order_id','".$arr[$i][0]."','".$row['book_price']."','".$arr[$i][2]."','".$arr[$i][1]."')";
     		mysqli_query($link, $query);
+
     	}
   	}
   	setcookie("cart","");

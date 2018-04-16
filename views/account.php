@@ -7,8 +7,13 @@
   $email = $row['customer_email'];
   $name = $row['customer_name'];
   $kind = $row['customer_kind'];
-
+  } else {
+  echo "<div class=\"alert alert-danger\" role=\"alert\">
+  You have not login, this page is not available
+  </div>";
+    die;
   }
+
 ?>
 <div class="container mainContainer">
   <div class="col-md-8 order-md-2">
