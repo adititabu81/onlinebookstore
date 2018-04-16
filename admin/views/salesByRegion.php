@@ -7,14 +7,14 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Profit'],
+          ['Region', 'Profit'],
           <?php
 
 
-              $sql = "SELECT DATE_FORMAT(transactions.order_date, '%Y') as year, SUM(books_transactions.price*books_transactions.quantity) as profit, SUM(books_transactions.quantity) as quantity FROM transactions JOIN books_transactions on transactions.order_id=books_transactions.order_id GROUP BY DATE_FORMAT(transactions.order_date, '%Y')";
+              $sql = "SELECT region.region_name as region, SUM(transactions.total_cost_price) as profit FROM transactions JOIN store ON transactions.store_id=store.store_id JOIN region ON region.region_id=store.region GROUP BY store.region";
               $result = mysqli_query($link, $sql);
               while($row = $result->fetch_assoc()) {
-                echo "['".$row['year']."',".$row['quantity'].",".$row['profit']."],";
+                echo "['".$row['region']."',".$row['profit']."],";
               }
           ?>
         ]);
@@ -33,6 +33,6 @@
     </script>
   </head>
   <body>
-    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+    <div id="columnchart_material" style="width: 600px; height: 500px;"></div>
   </body>
 </html>

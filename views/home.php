@@ -5,15 +5,20 @@
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1" ></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2" ></li>
   </ol>
-  <div class="carousel-inner" style=" width:120%; height: 300px !important;">
+  <div class="carousel-inner" style=" width:130%; height: 400px !important;">
     <div class="carousel-item active">
-      <a href="http://localhost/twitter/">
-      <img class="d-block w-100" src="pic/homebook.jpg" alt="First slide" >
+      <a href="?page=search">
+      <img class="d-block w-100" src="pic/homebook4.jpg" alt="First slide" >
     </div>
     <div class="carousel-item">
-      <a href="http://localhost/twitter/">
-      <img class="d-block w-100" src="pic/homebook2.jpg" alt="Second slide" >
+      <a href="?page=search">
+      <img class="d-block w-100" src="pic/homebook6.jpg" alt="Second slide" >
+    </div>
+    <div class="carousel-item">
+      <a href="?page=search">
+      <img class="d-block w-100" src="pic/homebook3.jpg" alt="Third slide" >
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

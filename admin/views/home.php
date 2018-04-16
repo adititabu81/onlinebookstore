@@ -78,19 +78,31 @@
               <li class="nav-item">
                 <a class="nav-link" href="?page=genreStatistics">
                   <span data-feather="file-text"></span>
-                  SalesOfGenre
+                  SalesByGenre
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="?page=salesOfStores">
                   <span data-feather="file-text"></span>
-                  SalesOfStores
+                  SalesByStores
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="?page=totalSales">
                   <span data-feather="file-text"></span>
-                  TotalSales
+                  SalesBybooks
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="?page=salesByYear">
+                  <span data-feather="file-text"></span>
+                  SalesByYear
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="?page=salesByRegion">
+                  <span data-feather="file-text"></span>
+                  SalesByRegion
                 </a>
               </li>
               <li class="nav-item">
@@ -103,12 +115,6 @@
                 <a class="nav-link" href="?page=monthlySales">
                   <span data-feather="file-text"></span>
                   MonthlySales
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="?page=salesByYear">
-                  <span data-feather="file-text"></span>
-                  SalesByYear
                 </a>
               </li>
             </ul>
@@ -132,14 +138,15 @@
                 include("views/totalSales.php");
             } else if ($_GET['page'] == 'topPopular') {
                 include("views/topPopular.php");
-            }else if ($_GET['page'] == 'monthlySales') {
+            } else if ($_GET['page'] == 'monthlySales') {
                 include("views/monthlySales.php");
             } else if ($_GET['page'] == 'salesByYear') {
                 include("views/salesByYear.php");
+            } else if ($_GET['page'] == 'salesByRegion') {
+                include("views/salesByRegion.php");
             }
           ?>
         </div>
-
       </div>
     </div>
 
