@@ -7,6 +7,6 @@
 
 4.put whole onlinebookstore folder in the "www" folder(this is for Ampps)
 
-5.enter "localhost/onlinebookstore" in brower go to book store
+5.enter "http:localhost/onlinebookstore" in brower go to book store
 
-6.enter "localhost/onlinebookstore/admin" go to admin system
+6.enter "http://localhost/onlinebookstore/admin" go to admin system
